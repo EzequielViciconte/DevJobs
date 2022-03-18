@@ -244,3 +244,16 @@ exports.ValidarVacante = (req, res, next) => {
     next();
 
 };
+
+exports.buscarVacantes = async (req,res)=>{
+    const vacantes = await Vacante.find({
+        $text:{
+            $search:req.body.q
+        }
+    });
+    res.render('home',{
+        NombrePagina:`Resultados para la busqueda:${req.body.q}`,
+        barra:true,
+        vacantes
+    })
+};

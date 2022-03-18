@@ -11,6 +11,7 @@ const mongoStore = require('connect-mongo');
 const BodyParser = require('body-parser');
 const expressValidator = require('express-validator');
 const flash = require('connect-flash');
+const createError = require('http-errors');
 const passport = require('./config/passports');
 
 require('dotenv').config({ path: 'variables.env' });
@@ -71,5 +72,20 @@ app.use((req, res, next) => {
 app.use('/', router());
 
 
+
+// 404 Pagina no encontrada
+app.use((req,res,next)=>{
+    next(createError(404,'No Encontrado'));
+})
+
+// Administrar Errores
+app.use((error,req,res,next)=>{
+    res.locals.mensaje = error.message;
+    const status = error.status || 500;
+    res.locals.status = status;
+    res.status(status);
+
+    res.render('error')
+});
 
 app.listen(process.env.PUERTO);

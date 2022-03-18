@@ -104,6 +104,9 @@ module.exports = () => {
     );
 
 
+    // Buscar Vacante
+    router.post('/buscador',vacanteController.buscarVacantes)
+
 
     return router;
 }

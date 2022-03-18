@@ -134,7 +134,5 @@ exports.GuardarPassword = async (req,res) => {
     await usuario.save();
 
     req.flash('correcto','Contraseña modificada correctamente');
-    res.redirect('/iniciar-secion');
-
-
+    res.redirect('/iniciar-secion'); 
 };
