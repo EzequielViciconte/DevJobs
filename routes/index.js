@@ -71,6 +71,15 @@ module.exports = () => {
     router.get('/iniciar-secion', UsuariosController.FormIniciarSecion);
     router.post('/iniciar-secion', AuthController.AutenticarUsuario);
 
+    // Restablecer Contraseña
+    router.get('/restablecer-password', AuthController.formRestPassword);
+    router.post('/restablecer-password', AuthController.EnviarToken);
+
+    // Resetear Contraseña Almacenar en BD
+    router.get('/restablecer-password/:Token',AuthController.RestablecerContraseña)
+    router.post('/restablecer-password/:Token', AuthController.GuardarPassword);
+
+
     // Cerrar Sesion
     router.get('/cerrar-sesion', 
     AuthController.verificarUsuario,

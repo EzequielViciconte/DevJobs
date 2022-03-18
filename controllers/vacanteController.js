@@ -36,15 +36,20 @@ exports.VacanteNueva = async(req, res, next) => {
     const vacante = await Vacante.findOne({ Url: req.params.Url }).populate('Autor');
 
     if (!vacante) return next();
+    let Admin = false;
+    // Comprobar si es Admin o no
+    if(vacante.Autor._id == req.user._id.toString()){
+       Admin=true;
+    }
+   
 
     res.render('vacante', {
         NombrePagina: vacante.Titulo,
         vacante, 
+        Admin
+       
     })
 };
-
-
-
 
 // Subir Archivos en PDF
 exports.SubirCv = (req,res,next)=> {
@@ -142,7 +147,12 @@ exports.mostrarCandidatos = async (req,res,next) => {
 
 exports.FormActualizarVacante = async(req, res, next) => {
     const vacante = await Vacante.findOne({ url: req.params.Url });
-    
+
+
+    if(vacante.Autor != req.user._id.toString()){
+        req.flash('error','Usted No tiene perimiso Para editar Esta Vacante');
+        res.redirect('back')
+    }
     if (!vacante) return next();
 
     res.render('editar-vacante', {

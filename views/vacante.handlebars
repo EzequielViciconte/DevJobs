@@ -25,8 +25,9 @@
             {{{vacante.Descripcion}}}
         </div>
 
-
-        <a href="/vacantes/editar/{{vacante.Url}}" class="btn btn-azul editar-btn">Editar Vacante</a>
+        {{#if Admin}}
+            <a href="/vacantes/editar/{{vacante.Url}}" class="btn btn-azul editar-btn">Editar Vacante</a>
+        {{/if}}
     </main>
     <aside class="sidebar">
         <h2>Conociminetos Deseados</h2>

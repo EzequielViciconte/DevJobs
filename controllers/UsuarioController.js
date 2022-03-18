@@ -65,6 +65,8 @@ exports.FormIniciarSecion = async(req, res, next) => {
     });
 };
 
+
+
 exports.FormEditarPerfil = (req, res) => {
     res.render('editar-perfil', {
         NombrePagina: 'Edita tu Perfil en DebJobs',
