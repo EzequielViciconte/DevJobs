@@ -1,0 +1,52 @@
+<main class="contenedor">
+    <form action="/vacantes/editar/{{vacante.Url}}" method="POST" class="default-form">
+
+    <h3>Informacion General</h3>
+    <div class="campo">
+        <label>Titulo</label>
+        <input value="{{vacante.Titulo}}" type="text" name="Titulo" placeholder="Ej: React Developer" required >
+    </div>
+    <div class="campo">
+        <label>Empresa</label>
+        <input value="{{vacante.Empresa}}" type="text" name="Empresa" placeholder="Empresa Contratada" required >
+    </div>
+    <div class="campo">
+        <label>Ubicacion</label>
+        <input value="{{vacante.Ubicacion}}" type="text" name="Ubicacion" placeholder="Ej: Mexico o Remoto" required >
+    </div>
+    <div class="campo">
+        <label>Salario</label>
+        <input value="{{vacante.Salario}}" type="text" name="Salario" placeholder="Ej:$500 USD" required >
+    </div>
+    <div class="campo">
+        <label>Contrato</label>
+        {{#tipoContrato vacante.Contrato}}
+            <select name="Contrato" >
+                <option value=""disabled selected>--Selecciona--</option>
+                <option value="freelance">Freelance</option>
+                <option value="Completo">Tiempo Completo</option>    
+                <option value="Medio">Medio Tiempo</option>    
+                <option value="Por Proyecto">Por Proyecto</option>    
+            </select>
+        {{/tipoContrato}}
+    </div>
+    <h3>Descripcion del Puesto</h3>
+    <div class="campo descripcion">
+        <label>Descripcion</label>
+        <input type="hidden" id="x"value="{{{vacante.Descripcion}}}" name="Descripcion">
+        <trix-editor input="x"></trix-editor>
+    </div>
+
+    <h3>Conocimientos</h3>
+    <ul class="lista-conocimientos">
+        {{#SeleccionarSkills vacante.Skills}}
+        {{/SeleccionarSkills}}
+    </ul>
+
+    <div class="campo centrar-horizontal">
+        <input type="hidden" name="Skills" id="Skills">
+        <input type="submit" value="Guardar Cambios" class="btn btn-azul">
+    </div>
+ 
+    </form>
+</main>
