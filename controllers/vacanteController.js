@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const Vacante = mongoose.model('Vacante');
+const multer = require('multer');
+const shortid = require('shortid');
 
 
 exports.FormularioNuevaVacante = (req, res) => {
@@ -31,23 +33,116 @@ exports.AgregarVacante = async(req, res) => {
 
 exports.VacanteNueva = async(req, res, next) => {
 
-    const vacante = await Vacante.findOne({ Url: req.params.giUrl }).populate('Autor');
-    console.log(vacante);
+    const vacante = await Vacante.findOne({ Url: req.params.Url }).populate('Autor');
 
     if (!vacante) return next();
 
     res.render('vacante', {
         NombrePagina: vacante.Titulo,
-        vacante,
-        cerrarSecion: true,
-        Nombre: req.user.Nombre,
-        Imagen: req.user.Imagen,
+        vacante, 
     })
 };
 
+
+
+
+// Subir Archivos en PDF
+exports.SubirCv = (req,res,next)=> {
+    upload(req,res, function(error){
+        if(error){
+            if(error instanceof multer.MulterError){
+                if(error.code === 'LIMIT_FILE_SIZE'){
+                    req.flash('error', 'El Archivo es Muy grande,Maximo 100Kb')
+                }else{
+                    req.flash('error', error.message);
+                }
+            }else{
+                req.flash('error', error.message)
+            }
+            res.redirect('back');
+            return;
+    }
+    next();
+    });
+};
+
+
+// Opciones del Multer
+const configuracionMulter = {
+    limits: {fileSize: 1000000},
+    storage: fileStorage = multer.diskStorage({
+        destination: (req,file,cb) => {
+            cb(null,__dirname+'../../public/uploads/Cv');
+        },
+        filename: (req,file,cb) =>{
+            const extencion = file.mimetype.split('/')[1];
+            const NombreCv = `${shortid.generate()}.${extencion}`;
+            cb(null,NombreCv);
+        }
+    }),
+    fileFilter(req,file,cb){
+        if(file.mimetype === 'application/pdf'){
+            // El callback se ejecuta en true
+            cb(null,true);
+        }
+        else{
+            // Callback se ejecuta en false
+            cb(new Error('Formato No Valido'),false);
+        }
+    }
+    
+}
+
+const upload = multer(configuracionMulter).single('cv');
+
+// Agregar Candidatos en BD
+exports.Contactar = async (req,res,next)=> {
+    const vacante = await Vacante.findOne({Url: req.params.Url});
+
+    if(!vacante)return next();
+
+    // Construir El Objeto
+    const NuevoCandidato = {
+    Nombre:req.body.Nombre,
+    Email:req.body.Email,
+    cv:req.file.filename
+    };
+
+    // Almacenar la vacante
+    vacante.Candidatos.push(NuevoCandidato);
+    await vacante.save();
+    // Redirect y Mensaje de flash
+    req.flash('correcto','Se Envio Correctamente');
+    res.redirect('/')
+};
+
+
+exports.mostrarCandidatos = async (req,res,next) => {
+    const vacante = await Vacante.findById(req.params.id);
+
+
+    if(!vacante) return next();
+    if(vacante.Autor != req.user._id.toString()){
+        return next();
+    }
+
+    res.render('Candidatos',{
+    NombrePagina :  `Candidatos Vacante - ${vacante.Titulo}`,
+    cerrarSecion: true,
+    Nombre: req.user.Nombre,
+    Imagen: req.user.Imagen,
+    tagline: 'Conoce a Los candidatos Interesados en  tu Puesto',
+    Candidatos: vacante.Candidatos
+    })
+ 
+    
+
+};
+
+
 exports.FormActualizarVacante = async(req, res, next) => {
     const vacante = await Vacante.findOne({ url: req.params.Url });
-
+    
     if (!vacante) return next();
 
     res.render('editar-vacante', {

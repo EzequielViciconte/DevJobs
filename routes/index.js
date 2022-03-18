@@ -22,11 +22,27 @@ module.exports = () => {
         vacanteController.AgregarVacante
     );
 
+    
+
     // Mostrar Vacante
     router.get('/vacantes/:Url',
-        AuthController.verificarUsuario,
         vacanteController.VacanteNueva
     );
+
+    
+    // Recibir  Mensajes de Candidatos
+    router.post('/vacantes/:Url',
+    vacanteController.SubirCv,
+    vacanteController.Contactar
+    )
+
+
+    // Mostrar los Candidatos de la vacante
+    router.get('/candidatos/:id',
+    AuthController.verificarUsuario,
+    vacanteController.mostrarCandidatos
+    )
+
 
     // Actualizar Vacante
     router.get('/vacantes/editar/:Url',
@@ -77,5 +93,8 @@ module.exports = () => {
         UsuariosController.SubirImagen,
         UsuariosController.EditarPerfil
     );
+
+
+
     return router;
 }
