@@ -23,7 +23,9 @@ exports.AgregarVacante = async(req, res) => {
 
     // Crear arreglo de Skills
     vacante.Skills = req.body.Skills.split(',');
-
+    
+ 
+   
     // Almacenar en Base de Datos
     const NuevaVacante = await vacante.save();
 
@@ -38,8 +40,10 @@ exports.VacanteNueva = async(req, res, next) => {
     if (!vacante) return next();
     let Admin = false;
     // Comprobar si es Admin o no
-    if(vacante.Autor._id == req.user._id.toString()){
-       Admin=true;
+    if(req.user){
+        if(vacante.Autor._id == req.user._id.toString()){
+        Admin=true;
+        }
     }
    
 
@@ -105,6 +109,7 @@ exports.Contactar = async (req,res,next)=> {
     const vacante = await Vacante.findOne({Url: req.params.Url});
 
     if(!vacante)return next();
+
 
     // Construir El Objeto
     const NuevoCandidato = {

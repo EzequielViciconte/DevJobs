@@ -45,6 +45,9 @@ const VacantesSchema = new mongoose.Schema({
         type: mongoose.Schema.ObjectId,
         ref: 'Usuario',
         required: 'El autor es Obligatorio'
+    } ,
+    Fecha: {
+        type:String
     }
 });
 
@@ -54,6 +57,9 @@ VacantesSchema.pre('save', function(next) {
     const Url = Slug(this.Titulo);
     this.Url = `${Url}-${shortId.generate()}`
 
+    // Crear la Fecha
+    Fecha = new Date();
+    this.Fecha = Fecha.toISOString().substring(0,10);
     next();
 });
 
