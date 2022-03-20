@@ -1,5 +1,3 @@
 node_modules
-public/uploads/Cv/*
-public/uploads/perfiles/*
 variables.env
-httpd.config
+

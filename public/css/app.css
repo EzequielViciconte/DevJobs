@@ -125,6 +125,7 @@ h3 {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-direction: column;
 }
 
 .nombre-sitio a {
@@ -327,7 +328,7 @@ h3 {
 
 .default-form .campo {
     margin-bottom: 3rem;
-    display: flex;
+    
 }
 
 .default-form label {
@@ -352,6 +353,12 @@ h3 {
     font-size: 1.8rem;
     border-radius: 1rem;
     border: none;
+    width: 100%;
+}
+
+.campo:last-child {
+    display: flex;
+    justify-content: center;
 }
 
 .default-form input[type="file"] {
@@ -448,12 +455,44 @@ trix-toolbar .trix-button--icon-strike {
     .lista-conocimientos li {
         flex: 0 0 calc( 33% - 1rem);
     }
+    .campo
+    {
+        display: flex;
+    }
+    .campo:last-child {
+        display: block;
+    }
+  
+  
+  
+   
 }
 
 @media (min-width:768px) {
     .lista-conocimientos li {
         flex: 0 0 calc( 25% - 1rem);
     }
+    div.datos-reclutador
+    {
+        display: flex;
+    }
+    .nombre-sitio {
+        flex-direction: row;
+    }
+    .nombre-sitio  .cerrar-sesion {
+        flex-direction: row;
+    }
+
+    .nombre-sitio .cerrar-sesion p{
+        margin: 0 2rem 0 0;
+        color: #888;
+    }
+    .nombre-sitio .cerrar-sesion img {
+        width: 50px;
+        border-radius: 3px;
+    }
+  
+
 }
 
 @media (min-width:992px) {
@@ -485,7 +524,7 @@ p.candidatos {
 
 .cerrar-sesion p,
 .cerrar-sesion a {
-    margin: 0 2rem 0 0;
+    margin: 12px 0px;
     color: #888;
 }
 
@@ -494,11 +533,14 @@ p.candidatos {
     color: white;
     display: flex;
     align-items: center;
+    flex-direction: column;
 }
 
 .cerrar-sesion img {
     width:50px;
     border-radius: 3px;
+    display: block;
+    margin: 0 auto;
 }
 
 .botones {
@@ -579,17 +621,21 @@ p.candidatos {
 .info-reclutador h2 {
     color: #616065;
     font-size: 2.4rem;
+    text-align: center;
 }
 
 .info-reclutador img {
     max-width: 300px;
     width: 100%;
+    display: block;
+    margin: 0 auto;
+
 }
 
 .datos-reclutador {
     border-top: 3px solid #272727;
     padding: 5rem 0;
-    display: flex;
+    display: block;
     justify-content: space-between;
     margin-top: 4rem;
 }
@@ -597,6 +643,7 @@ p.candidatos {
 .datos-reclutador p {
     font-size: 2.4rem;
     color: white;
+    text-align: center;
 }
 
 @media (min-width:768px) {

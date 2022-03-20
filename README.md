@@ -4,8 +4,11 @@
 
 <div>
 <p>En la carpeta del Proyecto Debera ejecutar el Siguiente Comando:</p>
-    
-### `npm start`
+
+### `npm intall`
+<p>Para que Se intalen los paquetes correspondientes y luego de esto ejecutar</p>
+
+### `npm dev`
 <p>Una ves ejecutado el comando,debe abrir este enlace  http://localhost:3000/ Para ver el proyecto en el navegador<br>
 Cualquier error se vera en la Consola.</p>
 </div>
@@ -15,6 +18,9 @@ Cualquier error se vera en la Consola.</p>
  DevJobs te va permitir  Cologcar  puestos de trabajo,para asi poder contratar A alguien interesado en ese puesto.<br>
  Si eres una persona que quiere conseguir un trabajo,apenas entras a la pagina podras ver todas las Vacantes que hay.<br>
  Dentro de la vacante habra una seccion para poder contactar al reclutador.En esa seccion ingresaras Tu informacion.
+
+ #  Deployment del Projecto
+ <p>Este proyecto se encuentra alojado en la siguiente Url : https://fierce-anchorage-46203.herokuapp.com/</p>
 
 #  Capturas de pantalla
  

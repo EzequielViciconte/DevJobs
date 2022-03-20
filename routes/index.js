@@ -5,7 +5,7 @@ const router = express.Router();
 const homeController = require('../controllers/homeController');
 const vacanteController = require('../controllers/vacanteController');
 const UsuariosController = require('../controllers/UsuarioController');
-const AuthController = require('../controllers/AuthController');
+const AuthController = require('../controllers/authController');
 const { route } = require('express/lib/application');
 
 module.exports = () => {
