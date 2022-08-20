@@ -20,7 +20,7 @@ Cualquier error se vera en la Consola.</p>
  Dentro de la vacante habra una seccion para poder contactar al reclutador.En esa seccion ingresaras Tu informacion.
 
  #  Deployment del Projecto
- <p>Este proyecto se encuentra alojado en la siguiente Url : https://fierce-anchorage-46203.herokuapp.com/</p>
+ <p>Este proyecto se encuentra alojado en la siguiente Url : https://devjobs12.herokuapp.com//</p>
 
 #  Capturas de pantalla
  
